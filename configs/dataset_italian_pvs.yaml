@@ -1,0 +1,75 @@
+# Configuration for scripts/verify_dataset.py
+# Nothing in here is a dataset statistic. These are scanning rules and QC thresholds.
+
+dataset_name: italian_pvs
+
+# ---------------------------------------------------------------------------
+# Group (label) detection from FOLDER NAMES.
+# Each regex is matched (case-insensitive) against every folder-name component
+# between the dataset root and the WAV file. The shallowest matching component
+# is the "group folder"; the folder directly below it is the participant folder.
+# If a path matches zero labels, or more than one distinct component matches,
+# verification hard-fails. Patterns are deliberately specific so that a wrapper
+# folder such as "Italian Parkinson's Voice and Speech" does NOT match.
+# EDIT THESE if your real folder names differ (console flag --print-tree-depth
+# shows folder names locally without writing them to any report).
+# ---------------------------------------------------------------------------
+groups:
+  young_healthy_control: "young"
+  elderly_healthy_control: "elder"
+  parkinsons_disease: "people with parkinson|parkinson.?s? disease"
+
+# Which label counts as Parkinson's disease for the binary column `is_pd`.
+pd_label: parkinsons_disease
+
+# ---------------------------------------------------------------------------
+# Task codes, from the FILE CODES file as CONFIRMED MANUALLY BY THE USER.
+# The script also tries to parse the real FILE CODES file and compares code
+# sets; any difference is reported as a warning.
+# ---------------------------------------------------------------------------
+task_codes:
+  B1:  {name: "balanced_text_reading_1", family: "text_reading"}
+  B2:  {name: "balanced_text_reading_2", family: "text_reading"}
+  D1:  {name: "syllable_task_5s_1",      family: "syllables"}
+  D2:  {name: "syllable_task_5s_2",      family: "syllables"}
+  FB1: {name: "balanced_phrases_words_1", family: "phrases_words"}
+  FB2: {name: "balanced_phrases_words_2", family: "phrases_words"}
+  VA1: {name: "sustained_vowel_a_1",     family: "sustained_vowel"}
+  VA2: {name: "sustained_vowel_a_2",     family: "sustained_vowel"}
+  VE1: {name: "sustained_vowel_e_1",     family: "sustained_vowel"}
+  VE2: {name: "sustained_vowel_e_2",     family: "sustained_vowel"}
+  VI1: {name: "sustained_vowel_i_1",     family: "sustained_vowel"}
+  VI2: {name: "sustained_vowel_i_2",     family: "sustained_vowel"}
+  VO1: {name: "sustained_vowel_o_1",     family: "sustained_vowel"}
+  VO2: {name: "sustained_vowel_o_2",     family: "sustained_vowel"}
+  VU1: {name: "sustained_vowel_u_1",     family: "sustained_vowel"}
+  VU2: {name: "sustained_vowel_u_2",     family: "sustained_vowel"}
+
+# Sanity check only (NOT used to build any statistic): subject counts you
+# counted by hand. A mismatch produces a WARNING.
+user_confirmed_subject_counts:
+  young_healthy_control: 15
+  elderly_healthy_control: 22
+  parkinsons_disease: 28
+
+# ---------------------------------------------------------------------------
+# Metadata column detection (name patterns only; nothing is inferred from values)
+# ---------------------------------------------------------------------------
+metadata:
+  age_column_regex: "^(age|et[aà]|anni)$"
+  sex_column_regex: "^(sex|sesso|gender)$"
+  group_column_regex: "^(group|source|gruppo|class|categoria)$"
+  # Columns whose values are never summarised in reports (may contain names/IDs)
+  sensitive_column_regex: "name|nome|cognome|surname|first|last|id$|^id|code|codice|subject|participant|soggetto|paziente"
+
+# ---------------------------------------------------------------------------
+# Audio QC thresholds (heuristic FLAGS, not rejections; Phase 6 decides actions)
+# ---------------------------------------------------------------------------
+audio_qc:
+  clip_sample_threshold: 0.999       # |x| >= this (full scale = 1.0) counts as clipped
+  clip_fraction_flag: 0.001          # flag if > 0.1% of samples clipped
+  near_silent_rms_dbfs: -60.0        # flag if whole-file RMS below this
+  silence_frame_ms: 25
+  silence_frame_dbfs: -50.0          # frame counted as silent below this
+  high_silence_fraction_flag: 0.90   # flag if > 90% of frames are silent
+  min_duration_sec_flag: 0.5

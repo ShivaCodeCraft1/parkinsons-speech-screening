@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parkinson's Speech Screening - research prototype</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Parkinson's Speech Screening</h1>
+    <p class="banner" role="note"><strong>Research prototype - not a medical device.</strong> It does not diagnose Parkinson's disease and has no
+      demonstrated clinical validity. Performance on controlled dataset recordings does not guarantee performance on arbitrary microphone recordings.</p>
+    <p id="model-status" class="muted">Checking model status...</p>
+  </header>
+
+  <main>
+    <section class="card" id="input-card">
+      <h2>1. Provide a recording</h2>
+      <p class="muted" id="task-hint"></p>
+      <div class="row">
+        <button id="btn-start" type="button">Start recording</button>
+        <button id="btn-stop" type="button" disabled>Stop recording</button>
+        <span id="timer" aria-live="polite">00:00</span>
+      </div>
+      <p class="muted">Or upload an audio file (WAV recommended; max 20 MB):</p>
+      <input id="file-input" type="file" accept="audio/*,.wav">
+      <p id="input-error" class="error" role="alert" hidden></p>
+      <div id="playback" hidden>
+        <h3>Preview</h3>
+        <audio id="player" controls></audio>
+        <p id="client-info" class="muted"></p>
+        <label><input type="checkbox" id="chk-explain"> Include per-prediction feature contributions (if the model supports it)</label>
+        <div class="row"><button id="btn-analyze" type="button" class="primary">Analyze</button><span id="busy" hidden>Analyzing...</span></div>
+      </div>
+    </section>
+
+    <section class="card" id="results" hidden>
+      <h2>2. Results</h2>
+      <div id="prediction-box"></div>
+      <div id="warnings"></div>
+      <h3>Audio validation</h3>
+      <dl id="validation-info" class="kv"></dl>
+      <h3>Waveform</h3>
+      <canvas id="wave" width="800" height="140"></canvas>
+      <h3>Spectrogram (0-5 kHz)</h3>
+      <canvas id="spec" width="800" height="200"></canvas>
+      <details><summary>Extracted acoustic features (from the backend)</summary>
+        <table id="features"><thead><tr><th>Feature</th><th>Value</th></tr></thead><tbody></tbody></table>
+      </details>
+      <p class="disclaimer" id="disclaimer"></p>
+    </section>
+
+    <section class="card" id="demo-card" hidden>
+      <h2>Local demo samples</h2>
+      <p class="muted">Samples come from the dataset on THIS computer (never bundled with the project). The model output is shown first; the dataset label is shown separately afterwards.</p>
+      <div class="row">
+        <select id="demo-select" aria-label="Demo sample"></select>
+        <button id="btn-demo" type="button">Run model on sample</button>
+      </div>
+      <div id="demo-result"></div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

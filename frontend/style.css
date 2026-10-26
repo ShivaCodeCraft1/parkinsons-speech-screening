@@ -1,0 +1,44 @@
+/* All design tokens live here so the look can be replaced without touching app.js */
+:root {
+  --color-bg: #f6f7f9;
+  --color-surface: #ffffff;
+  --color-text: #1b1f24;
+  --color-muted: #5f6b7a;
+  --color-border: #d9dee5;
+  --color-primary: #2457c5;
+  --color-primary-text: #ffffff;
+  --color-warn-bg: #fff6df;
+  --color-warn-border: #e0b64a;
+  --color-error: #b3261e;
+  --color-ok: #1f7a3d;
+  --radius: 8px;
+  --space-1: 0.4rem;
+  --space-2: 0.8rem;
+  --space-3: 1.2rem;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-body); background: var(--color-bg); color: var(--color-text); line-height: 1.45; }
+header, main { max-width: 860px; margin: 0 auto; padding: var(--space-3); }
+h1 { margin: 0 0 var(--space-2); font-size: 1.5rem; }
+h2 { margin-top: 0; font-size: 1.15rem; }
+h3 { font-size: 1rem; margin-bottom: var(--space-1); }
+.card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: var(--space-3); margin-bottom: var(--space-3); }
+.banner { background: var(--color-warn-bg); border: 1px solid var(--color-warn-border); border-radius: var(--radius); padding: var(--space-2); margin: 0 0 var(--space-2); }
+.muted { color: var(--color-muted); font-size: 0.92rem; }
+.error { color: var(--color-error); font-weight: 600; }
+.row { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; margin: var(--space-2) 0; }
+button { font: inherit; padding: 0.5rem 0.9rem; border-radius: var(--radius); border: 1px solid var(--color-border); background: var(--color-surface); cursor: pointer; }
+button.primary { background: var(--color-primary); color: var(--color-primary-text); border-color: var(--color-primary); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+canvas { width: 100%; max-width: 800px; background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius); }
+audio { width: 100%; }
+table { border-collapse: collapse; width: 100%; font-family: var(--font-mono); font-size: 0.85rem; }
+td, th { border-bottom: 1px solid var(--color-border); padding: 0.25rem 0.5rem; text-align: left; }
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 0.2rem var(--space-2); margin: 0; }
+.kv dt { color: var(--color-muted); } .kv dd { margin: 0; }
+.result { border: 2px solid var(--color-border); border-radius: var(--radius); padding: var(--space-2); margin-bottom: var(--space-2); }
+.result .big { font-size: 1.2rem; font-weight: 650; }
+.warn { background: var(--color-warn-bg); border: 1px solid var(--color-warn-border); border-radius: var(--radius); padding: 0.4rem 0.7rem; margin: 0.3rem 0; font-size: 0.92rem; }
+.disclaimer { color: var(--color-muted); font-size: 0.85rem; border-top: 1px solid var(--color-border); padding-top: var(--space-2); }

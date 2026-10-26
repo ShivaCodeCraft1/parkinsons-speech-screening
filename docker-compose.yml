@@ -1,0 +1,11 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      PD_MODEL_DIR: /app/models/current
+      PD_LOG_LEVEL: INFO
+    volumes:
+      # trained artifacts are produced locally by scripts/train.py; mounted read-only
+      - ./models/current:/app/models/current:ro

@@ -1,0 +1,1093 @@
+{
+  "meta": {
+    "script_version": "1.1.0",
+    "run_timestamp_utc": "2026-10-22T11:25:19+00:00",
+    "git_commit": null,
+    "python": "3.14.0",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "soundfile": "0.14.0",
+    "libsndfile": "1.2.2",
+    "config_sha256": "edb77072c03fad277541a227c916ec5bc64500223398a421e268887da846cc24",
+    "data_root": "<not recorded>"
+  },
+  "all_hard_checks_passed": false,
+  "hard_checks": [
+    {
+      "id": "H0_wav_files_found",
+      "status": "PASS",
+      "n_affected": 0,
+      "details": "831 WAV files found"
+    },
+    {
+      "id": "H1_every_wav_has_exactly_one_label",
+      "status": "PASS",
+      "n_affected": 0,
+      "details": "label status counts: {'ok': 831}. Fix group regexes in the config if wrong."
+    },
+    {
+      "id": "H2_subject_identity_unambiguous",
+      "status": "FAIL",
+      "n_affected": 1,
+      "details": "WAVs not inside a participant folder: 0; subject_id hash collisions: 0; participant names repeated across groups: 1; different folders with the same normalised name in one group: 0"
+    },
+    {
+      "id": "H3_subject_leakage_risk",
+      "status": "FAIL",
+      "n_affected": 1,
+      "details": "same name in different groups: 1; identical audio shared by different subjects: 0. Cannot detect one person stored under two differently named folders -> verify by hand."
+    },
+    {
+      "id": "H4_all_audio_readable_and_non_empty",
+      "status": "PASS",
+      "n_affected": 0,
+      "details": "0 unreadable or empty WAVs"
+    },
+    {
+      "id": "H5_task_codes_classified_or_quarantined",
+      "status": "PASS",
+      "n_affected": 0,
+      "details": "task parse status counts: {'ok': 766, 'unknown_code': 65}; unknown_code rows are written to the exclusion manifest"
+    },
+    {
+      "id": "H6_no_duplicate_recording_content",
+      "status": "FAIL",
+      "n_affected": 2,
+      "details": "byte-identical groups: 1; identical-audio groups: 1; subject+task slots with >1 file (review only): 45"
+    },
+    {
+      "id": "H7_recording_ids_unique",
+      "status": "PASS",
+      "n_affected": 0,
+      "details": "0 repeated recording_id values"
+    }
+  ],
+  "warnings": [
+    "A new salt file was created in the private folder. Back it up: without it subject_id values change.",
+    "Metadata join status is PARTIAL: age/sex are left EMPTY for participants that could not be linked unambiguously (nothing is guessed).",
+    "65 recordings have unknown task codes and were preserved in the full manifest but written to the exclusion manifest; no codes were guessed.",
+    "45 subject+task slots contain multiple recordings. These are retained and listed for review; only identical content triggers H6.",
+    "Other file types present (ignored): {'.txt': 1}",
+    "Participant-folder count for 'parkinsons_disease' is 24 but you counted 28 by hand.",
+    "More than one sample rate present: {16000: 671, 44100: 160} (resampling policy is a Phase 8 decision).",
+    "QC flag 'clipping_suspected' on 11 files (heuristic; inspect before Phase 6 decisions).",
+    "SHORTCUT RISK: 'sample_rate' values differ between label groups ({'young_healthy_control': ['16000'], 'elderly_healthy_control': ['16000'], 'parkinsons_disease': ['16000', '44100']}). A model could learn the recording setup."
+  ],
+  "counts": {
+    "n_wav_files": 831,
+    "n_participant_folders": 61,
+    "n_subjects_with_audio": 61,
+    "n_other_audio_files": 0,
+    "n_excel_files": 3,
+    "n_file_codes_files": 3,
+    "other_extensions": {
+      ".txt": 1
+    },
+    "by_label": {
+      "young_healthy_control": {
+        "participant_folders": 15,
+        "subjects_with_audio": 15,
+        "recordings": 45,
+        "user_confirmed": 15
+      },
+      "elderly_healthy_control": {
+        "participant_folders": 22,
+        "subjects_with_audio": 22,
+        "recordings": 349,
+        "user_confirmed": 22
+      },
+      "parkinsons_disease": {
+        "participant_folders": 24,
+        "subjects_with_audio": 24,
+        "recordings": 437,
+        "user_confirmed": 28
+      }
+    }
+  },
+  "recordings_per_subject": {
+    "by_group": {
+      "young_healthy_control": {
+        "n": 15,
+        "min": 3.0,
+        "median": 3.0,
+        "mean": 3.0,
+        "max": 3.0
+      },
+      "elderly_healthy_control": {
+        "n": 22,
+        "min": 13.0,
+        "median": 16.0,
+        "mean": 15.863636363636363,
+        "max": 16.0
+      },
+      "parkinsons_disease": {
+        "n": 24,
+        "min": 10.0,
+        "median": 16.0,
+        "mean": 18.208333333333332,
+        "max": 48.0
+      }
+    },
+    "histogram": {
+      "3": 15,
+      "10": 1,
+      "13": 1,
+      "14": 2,
+      "15": 1,
+      "16": 38,
+      "32": 2,
+      "48": 1
+    }
+  },
+  "recordings_per_task": {
+    "by_code": [
+      {
+        "code": "B1",
+        "name": "balanced_text_reading_1",
+        "total": 64,
+        "by_label": {
+          "young_healthy_control": 15,
+          "elderly_healthy_control": 21,
+          "parkinsons_disease": 28
+        },
+        "n_subjects": 60
+      },
+      {
+        "code": "B2",
+        "name": "balanced_text_reading_2",
+        "total": 60,
+        "by_label": {
+          "young_healthy_control": 15,
+          "elderly_healthy_control": 21,
+          "parkinsons_disease": 24
+        },
+        "n_subjects": 56
+      },
+      {
+        "code": "D1",
+        "name": "syllable_task_5s_1",
+        "total": 50,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 28
+        },
+        "n_subjects": 46
+      },
+      {
+        "code": "D2",
+        "name": "syllable_task_5s_2",
+        "total": 50,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 28
+        },
+        "n_subjects": 46
+      },
+      {
+        "code": "FB1",
+        "name": "balanced_phrases_words_1",
+        "total": 47,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 21,
+          "parkinsons_disease": 26
+        },
+        "n_subjects": 43
+      },
+      {
+        "code": "FB2",
+        "name": "balanced_phrases_words_2",
+        "total": 0,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 0,
+          "parkinsons_disease": 0
+        },
+        "n_subjects": 0
+      },
+      {
+        "code": "VA1",
+        "name": "sustained_vowel_a_1",
+        "total": 50,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 28
+        },
+        "n_subjects": 46
+      },
+      {
+        "code": "VA2",
+        "name": "sustained_vowel_a_2",
+        "total": 49,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 27
+        },
+        "n_subjects": 45
+      },
+      {
+        "code": "VE1",
+        "name": "sustained_vowel_e_1",
+        "total": 50,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 28
+        },
+        "n_subjects": 46
+      },
+      {
+        "code": "VE2",
+        "name": "sustained_vowel_e_2",
+        "total": 49,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 27
+        },
+        "n_subjects": 45
+      },
+      {
+        "code": "VI1",
+        "name": "sustained_vowel_i_1",
+        "total": 50,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 28
+        },
+        "n_subjects": 46
+      },
+      {
+        "code": "VI2",
+        "name": "sustained_vowel_i_2",
+        "total": 49,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 27
+        },
+        "n_subjects": 45
+      },
+      {
+        "code": "VO1",
+        "name": "sustained_vowel_o_1",
+        "total": 50,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 28
+        },
+        "n_subjects": 46
+      },
+      {
+        "code": "VO2",
+        "name": "sustained_vowel_o_2",
+        "total": 49,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 27
+        },
+        "n_subjects": 45
+      },
+      {
+        "code": "VU1",
+        "name": "sustained_vowel_u_1",
+        "total": 50,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 28
+        },
+        "n_subjects": 46
+      },
+      {
+        "code": "VU2",
+        "name": "sustained_vowel_u_2",
+        "total": 49,
+        "by_label": {
+          "young_healthy_control": 0,
+          "elderly_healthy_control": 22,
+          "parkinsons_disease": 27
+        },
+        "n_subjects": 45
+      }
+    ],
+    "n_unparsed": 65,
+    "parse_status_counts": {
+      "ok": 766,
+      "unknown_code": 65
+    },
+    "unknown_code_tokens": {
+      "PR1": 64,
+      "PR11": 1
+    },
+    "n_expected_codes": 16,
+    "subjects_by_codes_covered": {
+      "2": 15,
+      "9": 1,
+      "12": 1,
+      "13": 2,
+      "14": 1,
+      "15": 41
+    }
+  },
+  "filename_shapes_top": [
+    [
+      "A9A9A9",
+      786
+    ],
+    [
+      "A9A A9A9",
+      28
+    ],
+    [
+      "A9A_A9A9",
+      16
+    ],
+    [
+      "A9A9A9.",
+      1
+    ]
+  ],
+  "file_codes_check": {
+    "n_files": 3,
+    "files": [
+      {
+        "parsed": true,
+        "format": ".xlsx",
+        "codes_found": [
+          "B1",
+          "B2",
+          "D1",
+          "D2",
+          "FB1",
+          "FB2",
+          "VA1",
+          "VA2",
+          "VE1",
+          "VE2",
+          "VI1",
+          "VI2",
+          "VO1",
+          "VO2",
+          "VU1",
+          "VU2"
+        ],
+        "error_type": null
+      },
+      {
+        "parsed": true,
+        "format": ".xlsx",
+        "codes_found": [
+          "B1",
+          "B2",
+          "D1",
+          "D2",
+          "FB1",
+          "FB2",
+          "VA1",
+          "VA2",
+          "VE1",
+          "VE2",
+          "VI1",
+          "VI2",
+          "VO1",
+          "VO2",
+          "VU1",
+          "VU2"
+        ],
+        "error_type": null
+      },
+      {
+        "parsed": true,
+        "format": ".xlsx",
+        "codes_found": [
+          "B1",
+          "B2",
+          "D1",
+          "D2",
+          "FB1",
+          "FB2",
+          "VA1",
+          "VA2",
+          "VE1",
+          "VE2",
+          "VI1",
+          "VI2",
+          "VO1",
+          "VO2",
+          "VU1",
+          "VU2"
+        ],
+        "error_type": null
+      }
+    ],
+    "in_file_not_config": [],
+    "in_config_not_file": []
+  },
+  "audio": {
+    "n_readable": 831,
+    "n_unreadable": 0,
+    "n_empty": 0,
+    "sample_rate_counts": {
+      "16000": 671,
+      "44100": 160
+    },
+    "channel_counts": {
+      "1": 831
+    },
+    "subtype_counts": {
+      "PCM_16": 831
+    },
+    "flag_counts": {
+      "clipping_suspected": 11
+    },
+    "duration_overall": {
+      "n": 831,
+      "min": 3.375,
+      "median": 11.57,
+      "mean": 24.04372149757416,
+      "max": 250.3125
+    },
+    "duration_by_task": {
+      "B1": {
+        "n": 64,
+        "min": 38.2955,
+        "median": 65.13490625,
+        "mean": 76.36808877418156,
+        "max": 250.3125
+      },
+      "B2": {
+        "n": 60,
+        "min": 39.1836875,
+        "median": 55.75870847505669,
+        "mean": 61.090188149565385,
+        "max": 191.0625
+      },
+      "D1": {
+        "n": 50,
+        "min": 5.000725623582767,
+        "median": 6.4831875,
+        "mean": 6.268544787414965,
+        "max": 7.34875
+      },
+      "D2": {
+        "n": 50,
+        "min": 5.000725623582767,
+        "median": 6.2130624999999995,
+        "mean": 6.193977287414965,
+        "max": 7.6875
+      },
+      "FB1": {
+        "n": 47,
+        "min": 23.86975,
+        "median": 30.300725623582768,
+        "mean": 34.00543843477107,
+        "max": 75.4375
+      },
+      "FB2": {
+        "n": 0,
+        "min": null,
+        "median": null,
+        "mean": null,
+        "max": null
+      },
+      "VA1": {
+        "n": 50,
+        "min": 4.375,
+        "median": 12.346812499999999,
+        "mean": 13.83934479024943,
+        "max": 27.6
+      },
+      "VA2": {
+        "n": 49,
+        "min": 5.375,
+        "median": 6.0368125,
+        "mean": 7.281138324887778,
+        "max": 22.000725623582767
+      },
+      "VE1": {
+        "n": 50,
+        "min": 4.375,
+        "median": 12.41065625,
+        "mean": 13.99889737244898,
+        "max": 32.25
+      },
+      "VE2": {
+        "n": 49,
+        "min": 3.75,
+        "median": 6.125,
+        "mean": 7.020604181128234,
+        "max": 19.750725623582767
+      },
+      "VI1": {
+        "n": 50,
+        "min": 4.0,
+        "median": 13.713857709750567,
+        "mean": 14.464336595804987,
+        "max": 29.13
+      },
+      "VI2": {
+        "n": 49,
+        "min": 5.25,
+        "median": 6.1645,
+        "mean": 7.339618781526216,
+        "max": 35.22043083900227
+      },
+      "VO1": {
+        "n": 50,
+        "min": 6.5,
+        "median": 13.23446875,
+        "mean": 14.13075670068027,
+        "max": 31.6
+      },
+      "VO2": {
+        "n": 49,
+        "min": 5.376,
+        "median": 6.25,
+        "mean": 7.283293240085149,
+        "max": 23.499251700680272
+      },
+      "VU1": {
+        "n": 50,
+        "min": 3.375,
+        "median": 12.85003125,
+        "mean": 14.137907857142858,
+        "max": 29.03
+      },
+      "VU2": {
+        "n": 49,
+        "min": 5.125,
+        "median": 6.375,
+        "mean": 7.28011391087047,
+        "max": 22.700725623582766
+      }
+    }
+  },
+  "duplicates": {
+    "n_file_hash_groups": 1,
+    "n_files_in_file_hash_groups": 2,
+    "n_audio_hash_groups": 1,
+    "n_files_in_audio_hash_groups": 2,
+    "n_groups_spanning_subjects": 0,
+    "n_duplicate_subject_task_slots": 45
+  },
+  "metadata": {
+    "files": [
+      {
+        "file": "excel_file_1:15 YHC.xlsx",
+        "readable": true,
+        "error_type": null,
+        "sheets": [
+          {
+            "sheet": "Foglio1",
+            "readable": true,
+            "error_type": null,
+            "n_rows": 17,
+            "n_columns": 11,
+            "n_fully_empty_rows": 0,
+            "columns": [
+              {
+                "index": 0,
+                "name": "Unnamed: 0",
+                "n_missing": 1,
+                "frac_missing": 0.058823529411764705,
+                "n_unique": 14,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 1,
+                "name": "Unnamed: 1",
+                "n_missing": 1,
+                "frac_missing": 0.058823529411764705,
+                "n_unique": 6,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 2,
+                "name": "Unnamed: 2",
+                "n_missing": 1,
+                "frac_missing": 0.058823529411764705,
+                "n_unique": 3,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 3,
+                "name": "Unnamed: 3",
+                "n_missing": 1,
+                "frac_missing": 0.058823529411764705,
+                "n_unique": 7,
+                "numeric_fraction": 0.9375,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 4,
+                "name": "Unnamed: 4",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 4,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 5,
+                "name": "TEXT 1^READING",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 16,
+                "numeric_fraction": 0.9412,
+                "sensitive_values_hidden": false,
+                "unnamed_header": false
+              },
+              {
+                "index": 6,
+                "name": "Unnamed: 6",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 16,
+                "numeric_fraction": 0.9412,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 7,
+                "name": "TEXT 2^READING",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 17,
+                "numeric_fraction": 0.9412,
+                "sensitive_values_hidden": false,
+                "unnamed_header": false
+              },
+              {
+                "index": 8,
+                "name": "Unnamed: 8",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 17,
+                "numeric_fraction": 0.9412,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 9,
+                "name": "TEXT 3^READING",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 16,
+                "numeric_fraction": 0.9412,
+                "sensitive_values_hidden": false,
+                "unnamed_header": false
+              },
+              {
+                "index": 10,
+                "name": "Unnamed: 10",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 16,
+                "numeric_fraction": 0.9412,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              }
+            ],
+            "n_redacted_headers": 0
+          },
+          {
+            "sheet": "Foglio2",
+            "readable": true,
+            "error_type": null,
+            "n_rows": 0,
+            "n_columns": 0,
+            "n_fully_empty_rows": 0,
+            "columns": [],
+            "n_redacted_headers": 0
+          },
+          {
+            "sheet": "Foglio3",
+            "readable": true,
+            "error_type": null,
+            "n_rows": 0,
+            "n_columns": 0,
+            "n_fully_empty_rows": 0,
+            "columns": [],
+            "n_redacted_headers": 0
+          }
+        ]
+      },
+      {
+        "file": "excel_file_2:Tab 3.xlsx",
+        "readable": true,
+        "error_type": null,
+        "sheets": [
+          {
+            "sheet": "Sheet1",
+            "readable": true,
+            "error_type": null,
+            "n_rows": 29,
+            "n_columns": 11,
+            "n_fully_empty_rows": 3,
+            "columns": [
+              {
+                "index": 0,
+                "name": "PERSON",
+                "n_missing": 3,
+                "frac_missing": 0.10344827586206896,
+                "n_unique": 24,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": false,
+                "unnamed_header": false
+              },
+              {
+                "index": 1,
+                "name": "Unnamed: 1",
+                "n_missing": 6,
+                "frac_missing": 0.20689655172413793,
+                "n_unique": 15,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 2,
+                "name": "Unnamed: 2",
+                "n_missing": 6,
+                "frac_missing": 0.20689655172413793,
+                "n_unique": 3,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 3,
+                "name": "Unnamed: 3",
+                "n_missing": 6,
+                "frac_missing": 0.20689655172413793,
+                "n_unique": 13,
+                "numeric_fraction": 0.9565,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 4,
+                "name": "Unnamed: 4",
+                "n_missing": 6,
+                "frac_missing": 0.20689655172413793,
+                "n_unique": 2,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 5,
+                "name": "TEXT 1^READING",
+                "n_missing": 6,
+                "frac_missing": 0.20689655172413793,
+                "n_unique": 23,
+                "numeric_fraction": 0.913,
+                "sensitive_values_hidden": false,
+                "unnamed_header": false
+              },
+              {
+                "index": 6,
+                "name": "Unnamed: 6",
+                "n_missing": 6,
+                "frac_missing": 0.20689655172413793,
+                "n_unique": 23,
+                "numeric_fraction": 0.913,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 7,
+                "name": "TEXT 2^READING",
+                "n_missing": 6,
+                "frac_missing": 0.20689655172413793,
+                "n_unique": 23,
+                "numeric_fraction": 0.913,
+                "sensitive_values_hidden": false,
+                "unnamed_header": false
+              },
+              {
+                "index": 8,
+                "name": "Unnamed: 8",
+                "n_missing": 6,
+                "frac_missing": 0.20689655172413793,
+                "n_unique": 23,
+                "numeric_fraction": 0.913,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 9,
+                "name": "TEXT 3^READING",
+                "n_missing": 6,
+                "frac_missing": 0.20689655172413793,
+                "n_unique": 23,
+                "numeric_fraction": 0.9565,
+                "sensitive_values_hidden": false,
+                "unnamed_header": false
+              },
+              {
+                "index": 10,
+                "name": "Unnamed: 10",
+                "n_missing": 6,
+                "frac_missing": 0.20689655172413793,
+                "n_unique": 23,
+                "numeric_fraction": 0.9565,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              }
+            ],
+            "n_redacted_headers": 0
+          }
+        ]
+      },
+      {
+        "file": "excel_file_3:TAB 5.xlsx",
+        "readable": true,
+        "error_type": null,
+        "sheets": [
+          {
+            "sheet": "Foglio1",
+            "readable": true,
+            "error_type": null,
+            "n_rows": 30,
+            "n_columns": 11,
+            "n_fully_empty_rows": 0,
+            "columns": [
+              {
+                "index": 0,
+                "name": "Unnamed: 0",
+                "n_missing": 26,
+                "frac_missing": 0.8666666666666667,
+                "n_unique": 4,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 1,
+                "name": "Unnamed: 1",
+                "n_missing": 1,
+                "frac_missing": 0.03333333333333333,
+                "n_unique": 20,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 2,
+                "name": "Unnamed: 2",
+                "n_missing": 1,
+                "frac_missing": 0.03333333333333333,
+                "n_unique": 10,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 3,
+                "name": "Unnamed: 3",
+                "n_missing": 1,
+                "frac_missing": 0.03333333333333333,
+                "n_unique": 3,
+                "numeric_fraction": 0.0,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 4,
+                "name": "Unnamed: 4",
+                "n_missing": 1,
+                "frac_missing": 0.03333333333333333,
+                "n_unique": 18,
+                "numeric_fraction": 0.9655,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 5,
+                "name": "TEXT 1^ READING",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 30,
+                "numeric_fraction": 0.9333,
+                "sensitive_values_hidden": false,
+                "unnamed_header": false
+              },
+              {
+                "index": 6,
+                "name": "Unnamed: 6",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 30,
+                "numeric_fraction": 0.9333,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 7,
+                "name": "TEXT 2^ READING",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 26,
+                "numeric_fraction": 0.8,
+                "sensitive_values_hidden": false,
+                "unnamed_header": false
+              },
+              {
+                "index": 8,
+                "name": "Unnamed: 8",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 26,
+                "numeric_fraction": 0.8,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              },
+              {
+                "index": 9,
+                "name": "WORDS 1^ READING",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 30,
+                "numeric_fraction": 0.9667,
+                "sensitive_values_hidden": false,
+                "unnamed_header": false
+              },
+              {
+                "index": 10,
+                "name": "Unnamed: 10",
+                "n_missing": 0,
+                "frac_missing": 0.0,
+                "n_unique": 30,
+                "numeric_fraction": 0.9667,
+                "sensitive_values_hidden": true,
+                "unnamed_header": true
+              }
+            ],
+            "n_redacted_headers": 0
+          },
+          {
+            "sheet": "Foglio2",
+            "readable": true,
+            "error_type": null,
+            "n_rows": 0,
+            "n_columns": 0,
+            "n_fully_empty_rows": 0,
+            "columns": [],
+            "n_redacted_headers": 0
+          },
+          {
+            "sheet": "Foglio3",
+            "readable": true,
+            "error_type": null,
+            "n_rows": 0,
+            "n_columns": 0,
+            "n_fully_empty_rows": 0,
+            "columns": [],
+            "n_redacted_headers": 0
+          }
+        ]
+      }
+    ],
+    "linkage": {
+      "overall_status": "PARTIAL",
+      "participants_by_status": {
+        "not_linked": 60,
+        "linked_unambiguous": 1
+      },
+      "sheet_links": [
+        {
+          "file": "excel_file_1:15 YHC.xlsx",
+          "sheet": "Foglio1",
+          "column_index": 0,
+          "column_name": "Unnamed: 0",
+          "key_type": "full",
+          "n_participants_matched": 1,
+          "n_matched_exactly_one_row": 1,
+          "n_matched_multiple_rows": 0,
+          "n_rows_matched_by_multiple_participants": 0,
+          "n_cells_equal_to_a_wav_filename_stem": 0,
+          "linked": true,
+          "age_columns_found": [],
+          "sex_columns_found": [],
+          "group_like_columns_found": [],
+          "age_used": false,
+          "sex_used": false
+        },
+        {
+          "file": "excel_file_2:Tab 3.xlsx",
+          "sheet": "Sheet1",
+          "linked": false,
+          "n_participants_matched": 0
+        },
+        {
+          "file": "excel_file_3:TAB 5.xlsx",
+          "sheet": "Foglio1",
+          "linked": false,
+          "n_participants_matched": 0
+        }
+      ],
+      "folder_label_vs_metadata_group": []
+    }
+  },
+  "manifest_summary": {
+    "n_rows": 831,
+    "columns": [
+      "subject_id",
+      "recording_id",
+      "label",
+      "is_pd",
+      "age_if_available",
+      "sex_if_available",
+      "metadata_link_status",
+      "task_code",
+      "task_name",
+      "task_family",
+      "task_parse_status",
+      "audio_path",
+      "duration_sec",
+      "sample_rate",
+      "channels",
+      "num_frames",
+      "subtype",
+      "readable",
+      "peak_abs",
+      "rms_dbfs",
+      "clip_fraction",
+      "silence_fraction",
+      "qc_flags",
+      "file_sha256",
+      "audio_sha256"
+    ],
+    "n_with_age": 0,
+    "n_with_sex": 0,
+    "audio_path_mode": "pseudonymous logical paths (real paths only in private/path_lookup_PRIVATE.csv)"
+  },
+  "human_checks": [
+    "Open 3 or 4 participant folders at random and confirm each folder is ONE person (not a family folder or a mix of people).",
+    "Confirm no person appears in two folders under different spellings (the script can only detect identical names / identical audio).",
+    "Check the label-vs-metadata cross-tab in section 10 (if shown): do folder labels agree with the Excel group column?",
+    "Confirm the Excel columns used for age/sex (section 10) really are age and sex, and that the sex coding is what you expect.",
+    "Check the filename shapes (section 6) look like what you see in the file explorer; if many files failed task decoding, send me 5 name-REDACTED example filenames.",
+    "Listen to 2 or 3 WAVs flagged by QC (if any) and to one WAV per task type to confirm the task code matches what is spoken.",
+    "Confirm the sample-rate / channel summary matches the properties you saw earlier in your file explorer.",
+    "Keep the private folder out of Git and out of any chat or upload."
+  ]
+}

@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "parkinsons-speech-screening"
+version = "1.0.0"
+description = "Research prototype for speech-based Parkinson's disease screening research. NOT a diagnostic medical device."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["numpy", "pandas", "scipy", "scikit-learn", "joblib", "soundfile", "librosa", "praat-parselmouth", "matplotlib",
+  "openpyxl", "pyyaml", "xgboost", "shap", "fastapi", "uvicorn", "python-multipart", "pydantic"]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "httpx"]
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 130
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501", "E702"]

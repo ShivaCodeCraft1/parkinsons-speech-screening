@@ -1,0 +1,28 @@
+# Training / evaluation protocol. Nothing here is a result.
+seed: 42
+positive_class: parkinsons_disease        # label value that counts as the positive (is_pd == 1) class
+# Which task families are used. The deployed model only makes sense for the task(s) it was trained on.
+# Default: sustained vowels (short, easy to reproduce live with a microphone). Set to null to use all tasks.
+task_families: [sustained_vowel]
+split:
+  test_subject_fraction: 0.2              # approx. fraction of SUBJECTS held out (grouped by subject_id, stratified by group)
+  inner_cv_folds: 5                       # StratifiedGroupKFold folds on the training subjects
+  min_subjects_per_class_for_cv: 3
+threshold:
+  method: youden_oof                      # maximise sensitivity+specificity-1 on OUT-OF-FOLD training scores only
+bootstrap:
+  n_resamples: 1000                       # subject-level (cluster) bootstrap for confidence intervals
+  confidence: 0.95
+confounding:
+  min_subjects_for_subgroup_report: 6     # subgroups smaller than this are listed but metrics are suppressed
+models:
+  logistic_regression:
+    grid: {clf__C: [0.01, 0.1, 1.0, 10.0]}
+  svm_rbf:
+    grid: {clf__C: [0.1, 1.0, 10.0], clf__gamma: [scale, 0.01]}
+  random_forest:
+    grid: {clf__n_estimators: [300], clf__max_depth: [null, 5], clf__min_samples_leaf: [1, 3]}
+  xgboost:
+    grid: {clf__n_estimators: [200], clf__max_depth: [2, 4], clf__learning_rate: [0.05, 0.1]}
+explainability:
+  shap_max_rows: 300
